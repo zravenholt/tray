@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { ipcRenderer } from 'electron'
+import Nightmare from 'nightmare'
 
-// ipc
+// initialize web crawling
 
-const App = () => {
-  return (
-    <div>Hello Electron!</div>
-  )
+class Root extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      tagNodes: []
+    }
+
+  }
+
+  render() {
+    return (
+      // <div>Hello Electron</div>   
+      <div>{this.state.tagNodes[0].innerText || 'hello electron'}</div>   
+    )
+  }
+
+
 }
 
 ReactDOM.render(
-  <App />,
+  <Root />,
   document.getElementById('root')
 )
