@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import axios from 'axios'
 import { ipcRenderer } from 'electron'
-import Nightmare from 'nightmare'
-
-// initialize web crawling
 
 class Root extends Component {
   constructor(props) {
@@ -11,13 +9,20 @@ class Root extends Component {
     this.state = {
       tagNodes: []
     }
+    this.getPosts = this.getPosts.bind(this);
+    this.getPosts();
+  }
 
+  getPosts() {
+    axios.get('http://localhost:8080/api/posts/hiphopheads/fresh').then((res) => {
+      console.log('res is', res);
+    })
   }
 
   render() {
     return (
-      // <div>Hello Electron</div>   
-      <div>{this.state.tagNodes[0].innerText || 'hello electron'}</div>   
+      <div>Hello Electron</div>   
+      // <div>{this.state.tagNodes[0].innerText || 'hello electron'}</div>   
     )
   }
 

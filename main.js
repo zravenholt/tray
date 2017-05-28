@@ -1,6 +1,6 @@
 const menubar = require('menubar')
 const path = require('path')
-// const { app } = require('electron')
+const { ipcMain } = require('electron')
 const configure = require('./src/helpers/configure.js')
 
 
@@ -14,4 +14,8 @@ const mb = menubar({
 mb.on('ready', () => {
   console.log('Menubar app started.')
   configure(mb)
+})
+
+ipcMain.on('APP_PATH_REQUEST', (event) => {
+  event.sender.send('APP_PATH_REPLY')
 })
