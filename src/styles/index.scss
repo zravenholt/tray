@@ -1,0 +1,50 @@
+/* -- Variables -- */
+
+$grey: #B8B7B2;
+$lightGrey: #F0F0EC;
+$blue: #3B86FF;
+$black: #333;
+$green: #4DB15E;
+$purple: #B43BFF;
+$orange: #ffb43b;
+$red: #ff523b;
+
+/* -- Styling -- */
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+  text-rendering: geometricPrecision;
+}
+
+html {
+  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif;
+  color: $black;
+  background-color: $black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.search {
+  width: 100%;
+  height: 25%;
+  background-color: white;
+}
