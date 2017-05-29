@@ -7,7 +7,11 @@ class SearchInput extends Component {
 
   render() {
     return (
-      <div className="search__input"><h1>Input</h1></div>
+      <div className="search__input-container">
+        <form>
+          <input className="search__input-bar"></input>
+        </form>
+      </div> 
     )
   }
 }
