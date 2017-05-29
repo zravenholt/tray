@@ -18,13 +18,26 @@ class SearchBar extends Component {
     this.onParameterChange = this.onParameterChange.bind(this);
     this.updateInputBarValue = this.updateInputBarValue.bind(this);
     this.updateParentSearch = this.updateParentSearch.bind(this);
+    this.registerTabKey = this.registerTabKey.bind(this);
   }
 
   componentDidMount() {
     let timeout = null;
-    document.body.onkeyup = () => {
+
+    document.body.onkeyup = (e) => {
       clearTimeout(timeout)
       timeout = setTimeout(this.getRedditPosts, 2000);
+    }
+
+    document.body.onkeydown = this.registerTabKey;
+  }
+
+  registerTabKey(e) {
+    if (e.keyCode === 9) {
+      this.setState({
+        subredditFocus: !this.state.subredditFocus,
+        tagFocus: !this.state.tagFocus
+      })
     }
   }
 

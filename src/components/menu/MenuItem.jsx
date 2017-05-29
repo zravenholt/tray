@@ -13,10 +13,10 @@ class MenuItem extends Component {
 
   render() {
     return (
-      <div className="menu__item">
+      <div className="menu__item" style={{ cursor: "pointer" }}>
         <div className="menu__item-description">
           <div onClick={() => { this.onItemClick(this.props.target) }}>
-            {this.props.name}
+            {this.props.name.toLowerCase()}
           </div>
         </div>
       </div>

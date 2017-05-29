@@ -2,12 +2,11 @@
 
 $grey: #B8B7B2;
 $lightGrey: #F0F0EC;
-$darkGrey: #545452;
+$altBlack: #2b2b2d;
 $black: #333;
-$green: #87C38F;
-$beige: #F4F0BB;
-$red: #DA2C38;
-$brown: #43291F;
+$lightGreen: #A1E8AF;
+$lightPurple: #747C92;
+$purple: #372772;
 
 $largeFont: 2.3rem;
 $smallFont: 13px;
@@ -89,7 +88,8 @@ h1 {
 }
 
 .search__parameter--click {
-  color: $red;
+  color: $purple;
+  font-weight: bold;
 }
 
 .search__input-container {
@@ -111,7 +111,7 @@ h1 {
   border: none;
   background-color: $lightGrey;
   font-size: $largeFont;
-  color: $brown;
+  color: $lightPurple;
 }
 
 /* -- Status Bar -- */
@@ -130,7 +130,7 @@ h1 {
 
 .menu {
   width: 100%;
-  height: 72.5%;
+  height: 77.5%;
   background-color: $black;
   color: $lightGrey;
   display: flex;
@@ -141,15 +141,16 @@ h1 {
 
 .menu__item {
   padding: 0 16px;
+  min-height: min-content;
   width: 100%;
   height: 16%;
   display: flex;
   flex-direction: row;
   &:nth-child(even) {
-    background-color: $darkGrey;
+    background-color: $altBlack;
   }
-  &:hover {
-    cursor: pointer;
+  div:hover {
+    color: $lightGreen;
   }
 }
 
@@ -163,8 +164,5 @@ h1 {
   div {
     text-decoration: none;
     color: $lightGrey;
-    &:hover {
-      color: $beige;
-    }
   }
 }
