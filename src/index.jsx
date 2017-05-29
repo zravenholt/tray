@@ -32,8 +32,9 @@ class Root extends Component {
       <div className="container">
         <SearchBar 
           setItemsAtRoot={this.setItemsAtRoot}/>
-        {/*<StatusBar />
-        <Menu />*/}
+        {/*<StatusBar />*/}
+        <Menu 
+          items={this.state.menuItems}/>
       </div>
     )
   }

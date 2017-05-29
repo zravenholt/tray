@@ -2,14 +2,16 @@
 
 $grey: #B8B7B2;
 $lightGrey: #F0F0EC;
-$blue: #3B86FF;
+$darkGrey: #545452;
 $black: #333;
-$green: #4DB15E;
-$purple: #B43BFF;
-$orange: #ffb43b;
-$red: #ff523b;
+$green: #87C38F;
+$beige: #F4F0BB;
+$red: #DA2C38;
+$brown: #43291F;
 
-$largeFont: 2.2rem;
+$largeFont: 2.3rem;
+$smallFont: 13px;
+$containerPadding: 12px 16px;
 
 /* -- Global Styling -- */
 
@@ -63,12 +65,12 @@ h1 {
 
 .search {
   width: 100%;
-  height: 30%;
+  height: 22.5%;
   background-color: $lightGrey;
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
-  padding: 15px;
+  justify-content: space-around;
+  padding: $containerPadding;
 }
 
 .search__parameters {
@@ -109,4 +111,60 @@ h1 {
   border: none;
   background-color: $lightGrey;
   font-size: $largeFont;
+  color: $brown;
+}
+
+/* -- Status Bar -- */
+
+.status {
+  width: 100%;
+  height: 5%;
+  background-color: $grey;
+  padding: 16px;
+  // display: flex;
+  // flex-direction: column;
+  // padding: 15px;
+}
+
+/* -- Menu -- */
+
+.menu {
+  width: 100%;
+  height: 72.5%;
+  background-color: $black;
+  color: $lightGrey;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.menu__item {
+  padding: 0 16px;
+  width: 100%;
+  height: 16%;
+  display: flex;
+  flex-direction: row;
+  &:nth-child(even) {
+    background-color: $darkGrey;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.menu__item-description {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: $smallFont;
+  font-weight: bold;
+  div {
+    text-decoration: none;
+    color: $lightGrey;
+    &:hover {
+      color: $beige;
+    }
+  }
 }
