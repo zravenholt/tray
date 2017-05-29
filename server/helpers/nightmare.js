@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare')
-const nightmare = Nightmare({ show: true })
+const nightmare = Nightmare({ show: false })
 
 module.exports = function(subreddit, tag, cb) {
   nightmare
@@ -18,17 +18,21 @@ module.exports = function(subreddit, tag, cb) {
         return v.innerText.toLowerCase().includes(`[${tag}]`);
       })
     }, tag)
-    .end()
     .then((res) => {
       let response = {
         error: false,
-        data: res ,
-        errorStatus: null
+        data: res 
       }
       cb(response);
+      nightmare.end();
     })
-    .catch((err) => {
-      console.log(err)
+    .catch((error) => {
+      let response = {
+        error: error,
+        data: null
+      }
+      cb(response)
+      nightmare.end(error);
     })
 }
 
