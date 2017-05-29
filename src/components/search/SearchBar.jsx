@@ -33,7 +33,9 @@ class SearchBar extends Component {
     let tag = this.state.tagTerm.toLowerCase();
     axios
       .get(`http://localhost:8080/api/posts/${this.state.subredditTerm}/${tag}`)
-      .then((res) => { console.log('res is', res.data) })
+      .then((res) => { 
+        this.props.setItemsAtRoot(res.data.data); 
+      })
       .catch((err) => { console.log(err) })
   }
 

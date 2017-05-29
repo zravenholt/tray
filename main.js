@@ -7,8 +7,8 @@ const configure = require('./src/helpers/configure.js')
 const mb = menubar({
   alwaysOnTop: true,
   resizable: false,
-  width: 300,
-  height: 344
+  width: 600,
+  height: 688
 })
 
 mb.on('ready', () => {
