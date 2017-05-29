@@ -13,18 +13,23 @@ class SearchBar extends Component {
       tagTerm: ''
     }
 
-    this.onSearchBarType = this.onSearchBarType.bind(this);
+    this.updateParentSearch = this.updateParentSearch.bind(this);
     this.onParameterChange = this.onParameterChange.bind(this);
+    this.updateInputBarValue = this.updateInputBarValue.bind(this);
   }
 
-  onSearchBarType(e) {
+  componentDidMount() {
+    // document.body.addEventListener()
+  }
+
+  updateParentSearch(term) {
     if (this.state.subredditFocus) {
       this.setState({
-        subredditTerm: e.target.value
+        subredditTerm: term
       }, () => { console.log(this.state) })
     } else {
       this.setState({
-        tagTerm: e.target.value
+        tagTerm: term
       }, () => { console.log(this.state) })
     }
   }
@@ -34,13 +39,17 @@ class SearchBar extends Component {
       this.setState({
         subredditFocus: true,
         tagFocus: false
-      }, () => { console.log(this.state) })
+      })
     } else if (e.currentTarget.textContent === 'tag') {
       this.setState({
         subredditFocus: false,
         tagFocus: true
-      }, () => { console.log(this.state) })
+      })
     }
+  }
+
+  updateInputBarValue() {
+    return this.state.subredditFocus ? this.state.subredditTerm : this.state.tagTerm;
   }
 
   render() {
@@ -58,7 +67,9 @@ class SearchBar extends Component {
             focus={this.state.tagFocus}/>
         </div>
         <SearchBarInput 
-          onSearchBarType={this.onSearchBarType}/>
+          updateParentSearch={this.updateParentSearch}
+          subredditFocus={this.state.subredditFocus}
+          inputValue={this.updateInputBarValue()}/>
       </div>
     )
   }
