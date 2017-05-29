@@ -19,13 +19,16 @@ module.exports = function(subreddit, tag, cb) {
       })
     }, tag)
     .end()
-    .then((response) => {
-      console.log(response);
+    .then((res) => {
+      let response = {
+        error: false,
+        data: res ,
+        errorStatus: null
+      }
       cb(response);
-      return response;
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err)
     })
 }
 

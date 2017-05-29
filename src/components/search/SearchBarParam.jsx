@@ -8,7 +8,6 @@ class SearchBarParam extends Component {
   }
 
   registerClass(focus) {
-    console.log(this.props.focus);
     return focus ? "search__parameter--click" : ""
   }
 

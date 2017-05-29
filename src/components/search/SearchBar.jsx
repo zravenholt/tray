@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 import SearchBarParam from './SearchBarParam.jsx'
 import SearchBarInput from './SearchBarInput.jsx'
@@ -13,25 +14,27 @@ class SearchBar extends Component {
       tagTerm: ''
     }
 
-    this.updateParentSearch = this.updateParentSearch.bind(this);
+    this.getRedditPosts = this.getRedditPosts.bind(this);
     this.onParameterChange = this.onParameterChange.bind(this);
     this.updateInputBarValue = this.updateInputBarValue.bind(this);
+    this.updateParentSearch = this.updateParentSearch.bind(this);
   }
 
   componentDidMount() {
-    // document.body.addEventListener()
+    let timeout = null;
+    document.body.onkeyup = () => {
+      clearTimeout(timeout)
+      timeout = setTimeout(this.getRedditPosts, 2000);
+    }
   }
 
-  updateParentSearch(term) {
-    if (this.state.subredditFocus) {
-      this.setState({
-        subredditTerm: term
-      }, () => { console.log(this.state) })
-    } else {
-      this.setState({
-        tagTerm: term
-      }, () => { console.log(this.state) })
-    }
+  getRedditPosts() {
+    console.log('sending request', this.state)
+    let tag = this.state.tagTerm.toLowerCase();
+    axios
+      .get(`http://localhost:8080/api/posts/${this.state.subredditTerm}/${tag}`)
+      .then((res) => { console.log('res is', res.data) })
+      .catch((err) => { console.log(err) })
   }
 
   onParameterChange(e) {
@@ -50,6 +53,18 @@ class SearchBar extends Component {
 
   updateInputBarValue() {
     return this.state.subredditFocus ? this.state.subredditTerm : this.state.tagTerm;
+  }
+
+  updateParentSearch(term) {
+    if (this.state.subredditFocus) {
+      this.setState({
+        subredditTerm: term
+      })
+    } else {
+      this.setState({
+        tagTerm: term
+      })
+    }
   }
 
   render() {
