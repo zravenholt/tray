@@ -24,7 +24,10 @@ app.use('/api', router);
 io.on('connection', (socket) => {
   console.log("socket from client")
   socket.on('retrieve posts', (data) => {
-    console.log('socket data is', data)
+    //write logic for redis retrieval
+    // client.hgetall("hiphopheads:fresh", (err, obj) => {
+    //   console.log("redris retrieve is", obj);
+    // })
   })
 })
 
