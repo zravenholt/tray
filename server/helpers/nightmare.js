@@ -23,14 +23,14 @@ module.exports = function(subreddit, tag, cb) {
         error: false,
         data: res 
       }
-      cb(response);
+      cb(response, subreddit.toLowerCase(), tag);
     })
     .catch((error) => {
       let response = {
         error: error,
         data: null
       }
-      cb(response)
+      cb(response, subreddit.toLowerCase(), tag)
     })
 }
 

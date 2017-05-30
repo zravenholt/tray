@@ -14,7 +14,7 @@ class SearchBar extends Component {
       tagTerm: ''
     }
 
-    this.getRedditPosts = this.getRedditPosts.bind(this);
+    this.postRedditPosts = this.postRedditPosts.bind(this);
     this.onParameterChange = this.onParameterChange.bind(this);
     this.updateInputBarValue = this.updateInputBarValue.bind(this);
     this.updateParentSearch = this.updateParentSearch.bind(this);
@@ -26,7 +26,7 @@ class SearchBar extends Component {
 
     document.body.onkeyup = (e) => {
       clearTimeout(timeout)
-      timeout = setTimeout(this.getRedditPosts, 2000);
+      timeout = setTimeout(this.postRedditPosts, 2000);
     }
 
     document.body.onkeydown = this.registerTabKey;
@@ -41,15 +41,18 @@ class SearchBar extends Component {
     }
   }
 
-  getRedditPosts() {
-    console.log('sending request', this.state)
+  postRedditPosts() {
     let tag = this.state.tagTerm.toLowerCase();
-    axios
-      .get(`http://localhost:8080/api/posts/${this.state.subredditTerm}/${tag}`)
-      .then((res) => { 
-        this.props.setItemsAtRoot(res.data.data); 
-      })
-      .catch((err) => { console.log(err) })
+
+    this.props.socket.emit('retrieve posts', {
+      subreddit: this.state.subredditTerm,
+      tag: tag
+    });
+
+    axios.post(`http://localhost:8080/api/posts`, {
+      subreddit: this.state.subredditTerm,
+      tag: tag
+    });
   }
 
   onParameterChange(e) {

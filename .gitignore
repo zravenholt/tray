@@ -3,3 +3,5 @@
 /bundles/
 
 /server/config.js
+
+/server/dump.rdb

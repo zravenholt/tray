@@ -4,14 +4,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const redis = require('redis');
 const socketio = require('socket.io');
-const router = require('./routers/router.js');
+const { postRouter, setRedisClient, setSocket } = require('./routers/router.js');
 const { PORT } = require('./config');
 
+const jsonParser = bodyParser.json();
 const client = redis.createClient();
+setRedisClient(client);
+
 const app = express();
 const server = http.Server(app);
-const jsonParser = bodyParser.json();
 const io = socketio(server);
+setSocket(io);
 
 server.listen(PORT, () => console.log(`listening on *:${PORT}`));
 
@@ -19,24 +22,15 @@ app.use(cors());
 
 app.use(jsonParser);
 
-app.use('/api', router);
+app.use('/api', postRouter);
 
 io.on('connection', (socket) => {
-  console.log("socket from client")
+  setSocket(socket);
+
   socket.on('retrieve posts', (data) => {
-    //write logic for redis retrieval
-    // client.hgetall("hiphopheads:fresh", (err, obj) => {
-    //   console.log("redris retrieve is", obj);
-    // })
-  })
+    client.hget(data.subreddit, data.tag, (err, obj) => {
+      let posts = JSON.parse(obj);
+      socket.emit('receive posts', { posts: posts });
+    });
+  });
 })
-
-
-
-
-// io.on('connection', (socket) => {
-//   console.log("connected");
-//   socket.on('retrieve posts', (data) => {
-//     console.log("socket connect from client", data);
-//   })
-// })

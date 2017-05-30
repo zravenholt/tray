@@ -1,13 +1,12 @@
 const express = require('express')
 const crawl = require('../helpers/nightmare.js')
-const { client } = require('../main.js')
+const postRouter = express.Router();
 
-const postRouter = express.Router()
+var client;
+var socket;
 
 postRouter.get('/posts/:subreddit/:tag', (req, res) => {
-  console.log(req.params);
   crawl(req.params.subreddit, req.params.tag, (result) => {
-    console.log(result);
     if (result.error) {
       res.send(400, result);
     }
@@ -15,5 +14,21 @@ postRouter.get('/posts/:subreddit/:tag', (req, res) => {
   })
 })
 
-module.exports = postRouter;
+postRouter.post('/posts', (req, res) => {
+  crawl(req.body.subreddit, req.body.tag, (result, subreddit, tag) => {
+    if (result.error) {
+      res.send(400, result);
+    }
+    let flat = JSON.stringify(result);
+    client.hset(subreddit, tag, flat);
+    socket.emit('reddit-posted', { subreddit: subreddit, tag: tag })
+    res.sendStatus(200);
+  })
+})
+
+module.exports = {
+  postRouter: postRouter,
+  setRedisClient: function(inMainClient) { client = inMainClient },
+  setSocket: function(inMainSocket) { socket = inMainSocket }
+}
   

@@ -23,24 +23,33 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    this.socket.emit("retrieve posts", { subreddit: "hiphopheads" });
+    this.socket.on('reddit-posted', (data) => {
+      this.socket.emit("retrieve posts", data)
+    })
+
+    this.socket.on('receive posts', (response) => {
+      this.setState({
+        menuItems: response.posts.data
+      })
+    })
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.socket.emit("retrieve posts", { subreddit: "hiphopheads" });
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
-
+  
   setItemsAtRoot(arr) {
     this.setState({
       menuItems: arr
-    }, () => { console.log('root state is', this.state) })
+    })
   }
 
   render() {
     return (
       <div className="container">
         <SearchBar 
-          setItemsAtRoot={this.setItemsAtRoot}/>
+          setItemsAtRoot={this.setItemsAtRoot}
+          socket={this.socket}/>
         {/*<StatusBar />*/}
         <Menu 
           items={this.state.menuItems}/>
