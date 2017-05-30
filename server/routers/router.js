@@ -20,6 +20,7 @@ postRouter.post('/posts', (req, res) => {
       res.send(400, result);
     }
     let flat = JSON.stringify(result);
+    console.log(flat);
     client.hset(subreddit, tag, flat);
     socket.emit('reddit-posted', { subreddit: subreddit, tag: tag })
     res.sendStatus(200);
