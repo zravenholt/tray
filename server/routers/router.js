@@ -1,5 +1,6 @@
 const express = require('express')
 const crawl = require('../helpers/nightmare.js')
+const { client } = require('../main.js')
 
 const postRouter = express.Router()
 

@@ -18,10 +18,14 @@
     "cors": "^2.8.3",
     "electron": "^1.6.10",
     "express": "^4.15.3",
+    "flat": "^2.0.1",
     "menubar": "^5.2.3",
     "nightmare": "^2.10.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "redis": "^2.7.1",
+    "socket.io": "^2.0.1",
+    "socket.io-client": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
