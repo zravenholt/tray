@@ -24,7 +24,6 @@ module.exports = function(subreddit, tag, cb) {
         data: res 
       }
       cb(response);
-      nightmare.end();
     })
     .catch((error) => {
       let response = {
@@ -32,7 +31,6 @@ module.exports = function(subreddit, tag, cb) {
         data: null
       }
       cb(response)
-      nightmare.end(error);
     })
 }
 
