@@ -16,7 +16,7 @@ class MenuItem extends Component {
       <div className="menu__item" style={{ cursor: "pointer" }}>
         <div className="menu__item-description">
           <div onClick={() => { this.onItemClick(this.props.target) }}>
-            {this.props.name.toLowerCase()}
+            {this.props.title.toLowerCase()}
           </div>
         </div>
       </div>

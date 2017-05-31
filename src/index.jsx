@@ -29,7 +29,7 @@ class Root extends Component {
 
     this.socket.on('receive posts', (response) => {
       this.setState({
-        menuItems: response.posts.data
+        menuItems: response.posts
       })
     })
   }

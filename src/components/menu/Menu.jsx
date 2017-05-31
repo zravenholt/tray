@@ -12,8 +12,11 @@ class Menu extends Component {
         {this.props.items.map((v) => {
           return ( 
             <MenuItem 
-              name={v.innerText}
+              title={v.title}
               target={v.target} 
+              tag={v.tag}
+              discussion={v.permalink}
+              comments={v.comments}
             />
           )
         })}
