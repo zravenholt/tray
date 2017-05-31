@@ -18,7 +18,7 @@ class SearchBar extends Component {
     this.onParameterChange = this.onParameterChange.bind(this);
     this.updateInputBarValue = this.updateInputBarValue.bind(this);
     this.updateParentSearch = this.updateParentSearch.bind(this);
-    this.registerTabKey = this.registerTabKey.bind(this);
+    this.onTabOrEnter = this.onTabOrEnter.bind(this);
   }
 
   componentDidMount() {
@@ -29,18 +29,27 @@ class SearchBar extends Component {
       timeout = setTimeout(this.postRedditPosts, 2000);
     }
 
-    document.body.onkeydown = this.registerTabKey;
+    document.body.onkeydown = this.onTabOrEnter;
   }
 
-  registerTabKey(e) {
+  onTabOrEnter(e) {
     if (e.keyCode === 9) {
       this.setState({
         subredditFocus: !this.state.subredditFocus,
         tagFocus: !this.state.tagFocus
       })
     }
+
+    if (e.keyCode === 13) {
+      e.preventDefault();
+    }
   }
 
+  componentWillUnmount() {
+    document.body.removeEventListener('onkeyup');
+    document.body.removeEventListener('onkeydown', this.onTabOrEnter);
+  }
+  
   postRedditPosts() {
     let tag = this.state.tagTerm.toLowerCase();
 

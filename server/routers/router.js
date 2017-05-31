@@ -27,23 +27,27 @@ postRouter.post('/posts', (req, res) => {
           return title.toLowerCase().includes(`${req.body.tag}`);
         }
         return false; })
-      .map((match) => {
-        return {
-          subreddit: req.body.subreddit,
-          tag: req.body.tag,
-          permalink: match.data.permalink,
-          comments: match.data.num_comments,
-          target: match.data.url,
-          title: match.data.title
-        }
-      })
+        .map((match) => {
+          return {
+            subreddit: req.body.subreddit,
+            tag: req.body.tag,
+            permalink: match.data.permalink,
+            comments: match.data.num_comments,
+            target: match.data.url,
+            title: match.data.title
+          }
+        })
+  
 
       let flat = JSON.stringify(matched);
       client.hset(req.body.subreddit, req.body.tag, flat);
       socket.emit('reddit-posted', { subreddit: req.body.subreddit, tag: req.body.tag });
-      res.sendStatus(200);
-    }
-  )
+      res.sendStatus(200); 
+    })
+   .catch((err) => {
+     console.log(err);
+     res.sendStatus(400);
+   }) 
 })
 
 
